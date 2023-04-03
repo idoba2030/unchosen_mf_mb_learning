@@ -1,0 +1,136 @@
+
+    img {
+        height: 250px;
+        width: 200px;
+    }
+
+    p {
+        padding: 10px
+    }
+
+    img.keyboard {
+        height: 215px;
+        width: 517px;
+    }
+
+    img.fullscreen {
+        height: 150px;
+        width: 526px;
+    }
+    .table  {
+        height: 228px;
+        width: 516px;
+    }
+
+    .example  {
+        height: 140px;
+        width: 520px;
+    }
+    .fruit_example  {
+        height: 300px;
+        width: 520px;
+    }
+    .reward_example  {
+        height: 300px;
+        width: 520px;
+    }
+
+    .companies_example  {
+        height: 112px;
+        width: 700px;
+    }
+    .all_fruit_example  {
+        height: 75px;
+        width: 700px;
+    }
+    .company_and_fruit  {
+        height: 360px;
+        width: 120px;
+    }
+    :root {
+
+        --fruit_left: 0px;
+        --fruit_right: 0px;
+        --top_company: 0px;
+
+        --top_reward: 0px;
+        --left_reward: 0px;
+    }
+
+    .fixation {
+        /* plus fixation will be in the middle of the screen*/
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 15.8px;
+    }
+    .error {
+        /* plus fixation will be in the middle of the screen*/
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 45.8px;
+    }
+    .reward {
+
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        height: 100px;
+        width: 100px;
+    }
+
+    .group {
+        height: 135px;
+        width: 487px;
+    }
+
+    img.fruit_left {
+        position: fixed;
+        height: 75px;
+        width: 75px;
+        left: var(--left_fruit);
+        top: var(--top_fruit);
+    }
+
+    img.fruit_right {
+        position: fixed;
+        height: 75px;
+        width: 75px;
+        right: var(--left_fruit);
+        top: var(--top_fruit);
+    }
+
+    img.one_company {
+        position: fixed;
+        height: 150px;
+        width: 150px;
+        top: var(--top_one_company);
+        left: var(--left_one_company);
+    }
+
+    img.left_company {
+        position: fixed;
+        height: 150px;
+        width: 150px;
+        left: var(--left_company);
+        top: var(--top_company);
+    }
+
+
+    img.right_company {
+        position: fixed;
+        height: 150px;
+        width: 150px;
+        right: var(--left_company);
+        top: var(--top_company);
+    }
+
+    img.fruit {
+        position: fixed;
+        height: 75px;
+        width: 75px;
+        left: var(--middle_fruit);
+        top: var(--top_fruit);
+    }
+

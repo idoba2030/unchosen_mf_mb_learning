@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Game</title>
+    
+    <script src="lib/vendors/jspsych-7.1.2/jspsych.js"></script>
+    <script src="lib/vendors/jspsych-7.1.2/plugin-html-keyboard-response.js"></script>
+    <script src="lib/vendors/jspsych-7.1.2/plugin-html-button-response.js"></script>
+    <script src="lib/vendors/jspsych-7.1.2/plugin-preload.js"></script>
+    <script src="lib/vendors/jspsych-7.1.2/plugin-fullscreen.js"></script>
+    <script src="lib/vendors/jspsych-7.1.2/plugin-instructions.js"></script>
+    <script src="lib/vendors/jspsych-7.1.2/plugin-survey-text.js"></script>
+    <script src="lib/vendors/jspsych-7.1.2/plugin-survey-multi-choice.js"></script>
+    <link rel="stylesheet" href="lib/vendors/jspsych-7.1.2/jspsych.css">
+    <link href="my_exp.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="lib/jspsych-7-pavlovia-2022.1.1.js"></script>
+
+    <!-- local run
+    <script src="jspsych/dist/jspsych.js"></script>
+    <script src="jspsych/dist/plugin-html-keyboard-response.js"></script>
+    <script src="jspsych/dist/plugin-html-button-response.js"></script>
+    <script src="jspsych/dist/plugin-preload.js"></script>
+    <script src="jspsych/dist/plugin-instructions.js"></script>
+    <script src="jspsych/dist/plugin-survey-text.js"></script>
+    <script src="jspsych/dist/plugin-survey-multi-choice.js"></script>
+    <script src="jspsych/dist/plugin-fullscreen.js"></script>
+    <script src="jspsych/dist/plugin-html-button-response.js"></script>
+    <script src="jspsych/dist/plugin-html-slider-response.js"></script>
+    <link href="jspsych/dist/jspsych.css" rel="stylesheet" type="text/css" />
+    <link href="css/my_exp.css" rel="stylesheet" type="text/css">-->
+
+  </head>
+  <body></body>
+  <script>
+    /* initialize jsPsych */
+        var jsPsych = initJsPsych({
+    });
+
+
+      // capture info from Prolific
+   // var subject_id = jsPsych.data.getURLVariable('PROLIFIC_PID');
+    //var study_id = jsPsych.data.getURLVariable('STUDY_ID');
+  //  var session_id = jsPsych.data.getURLVariable('SESSION_ID');
+
+   // jsPsych.data.addProperties({
+   // subject_id: subject_id,
+  //  study_id: study_id,
+  //  session_id: session_id
+ // });
+    /* create timeline */
+    var timeline = [];
+    /* init connection with pavlovia.org */
+        var pavlovia_init = {
+			type: jsPsychPavlovia,
+			command: "init"
+
+    };
+    timeline.push(pavlovia_init);
+    var root = document.documentElement;
+    var vis_angle_px = 105
+    root.style.setProperty('--left_fruit', window.screen.width / 2 -250+ "px");
+    root.style.setProperty('--middle_fruit', window.screen.width / 2-35+ "px");
+    root.style.setProperty('--top_fruit', window.screen.height / 2 +50+"px");
+    root.style.setProperty('--left_company', window.screen.width / 2 -300+ "px");
+    root.style.setProperty('--top_company', window.screen.height / 2 -300+"px");
+    root.style.setProperty('--top_one_company', window.screen.height / 2 - 300 + "px");
+    root.style.setProperty('--left_one_company', window.screen.width / 2 - (130/2) + "px");
+    /* define welcome message trial */
+    var welcome = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: "Welcome to the experiment. Press any key to begin."
+    };
+    var companies = [0,1,2,3,4];
+    var fruit = [0,1,2,3,4];
+    var block = 0;
+    var blocks = 3;
+    var company_fruit = [[0,1],[1,2],[2,3],[3,4],[4,0]];
+    var fruit_images = ['images/fruit/apple.png', 'images/fruit/banana.png','images/fruit/grapes.png','images/fruit/strawberry.png','images/fruit/watermelon.png']
+    
+    var company_images = ['images/companies/1.png', 'images/companies/2.png', 'images/companies/3.png', 'images/companies/4.png','images/companies/5.png']
+    var example_images = ['images/two_companies.png', 'images/one_company.png', 'images/fruit_example.png', 'images/reward_example.png','images/company1.jpg','images/company2.jpg','images/company3.jpg','images/company4.jpg','images/company5.jpg',"images/keyboard.p"]
+    var fixation = '<div class="fixation">+</div>'
+
+    var preload = {
+    type: jsPsychPreload,
+    images: [example_images,company_images,fruit_images]
+    };
+timeline.push(preload)
+    var enter_fullscreen = {
+    type: jsPsychFullscreen,
+    fullscreen_mode: true,
+    message : '<p>This experiment will be in fullscreen mode. <br> <b>Please make sure your browser is on 100% zoom and the downloads toolbar is closed.</b></p>'
+    }
+
+    /*---------------------------------------------------- 
+        Start instructions
+        ------------------------------------------------------*/
+        var instructions_learning = {
+            on_start: function () {
+                if (document.querySelector('#cursor-toggle') != null) {
+                    document.querySelector('#cursor-toggle').remove()
+                }
+            },
+            type: jsPsychInstructions,
+            pages: ["<b><u>Welcome to the market game</u></b><br><br> In this game <b>you are the manager</b> of a small business that sells fruit at the market",
+                "You have <b>five shipping companies</b> working for you. <br><br> Each company transports to the market <b>two kinds of fruit</b>",
+                "We will start by making sure you are familiar with each company and the fruit they transport.",
+                "These are the logos of the five transportation companies.<br><br> <img class=companies_example src='images/companies_example.jpg'>",
+                "<p>These are the five fruit your company transports.<br><br> <img class=all_fruit_example src='images/all_fruit_example.jpg'>",
+                "You will now be shown each company and the two fruit it transports.<br><br> <b>Take your time to try and remember which fruit each company transports.</b>",
+                "<img class=company_and_fruit src='images/company1.jpg' >",
+                "<img class=company_and_fruit src='images/company2.jpg' >",
+                "<img class=company_and_fruit src='images/company3.jpg' >",
+                "<img class=company_and_fruit src='images/company4.jpg' >",
+                "<img class=company_and_fruit src='images/company5.jpg' >",
+                "<p>You will now be trained on your knowledge of what fruit each company transports.<br><br> <b>You can scroll back and take your time to try and remember which fruit are being transported by each company.</b></p>",
+                "Each time you will be presented with <b>a company and two fruit, one which the company is transporting and one which it does not </b><br>",
+                "Your task is to choose the fruit which the shown company is transporting.<br> You can select the <b>left fruit by pressing on the letter 'S' on your keyboard,</b> and the <b>right fruit by pressing on the letter 'K' on your keyboard</b>",
+                "You will have <b>2.5 seconds</b> to select the correct fruit<br>",
+                "You will need to <b>answer correctly 20 times before moving on in the game</b>.<br> After <b>2 wrong or too slow responses the count will start from the beginning.</b>",
+                ],
+            show_clickable_nav: true
+        };
+        
+        var completed;
+        var current_learning_trial = 0;
+        var counter_correct=0;
+        var counter_errors=0;
+        var selected;
+        var left_company;
+        var right_company;
+        var shuffled_companies;
+        function draw_learning(companies,company_images) {
+        shuffled_company = jsPsych.randomization.sampleWithoutReplacement(companies, 1)
+        correct_fruit = jsPsych.randomization.sampleWithoutReplacement(company_fruit[shuffled_company], 1)
+        filtered_fruit = fruit.filter(a_fruit => a_fruit!= company_fruit[shuffled_company][0]&a_fruit!= company_fruit[shuffled_company][1]); //fruit that do not belong to shuffled company
+        incorrect_fruit = jsPsych.randomization.sampleWithoutReplacement(filtered_fruit, 1)
+        shuffle_location_correct = jsPsych.randomization.shuffle([0,1])
+        locations = ['fruit_left','fruit_right']
+        correct_with_tag = "<img class="+locations[shuffle_location_correct[0]]+  " src='" + fruit_images[correct_fruit] + "'>"
+        incorrect_with_tag = "<img class="+locations[shuffle_location_correct[1]]+  " src='" + fruit_images[incorrect_fruit] + "'>"
+        shuffled_company = "<img class=one_company src='" + company_images[shuffled_company] + "'>"
+        return shuffled_company+correct_with_tag + incorrect_with_tag + fixation;
+        }
+
+
+        function show_choice() {
+            last_choice = jsPsych.data.getLastTrialData().values()[0].response
+            last_rt = jsPsych.data.getLastTrialData().values()[0].rt
+            correct_response=jsPsych.data.getLastTrialData().values()[0].correct_response
+            if ((last_choice == 's'&correct_response==0)|last_choice == 'k'&correct_response==1) {
+                counter_correct+=1
+                result="Correct! you have " + counter_correct + " correct answers"
+            }
+            else if (last_rt >2500 |last_rt==null) {
+                if(counter_errors==1){
+                result = 'Too slow! starting again'
+                counter_correct=0
+                counter_errors=0
+                }
+                else {
+                result = 'Too slow!'
+                }
+                counter_errors=1
+            }
+            else {
+                if(counter_errors==1){
+                result = 'Incorrect, starting again'
+                counter_correct=0
+                counter_errors=0
+                }
+                else {
+                result = 'Incorrect'
+                counter_errors=1
+                }
+            }
+            return '<div class="fixation">'+result+'</div>'
+        }
+
+        var learning_choice = {
+            type: jsPsychHtmlKeyboardResponse,
+            stimulus: function () {
+                return draw_learning(companies,company_images)
+            },
+            choices: ['s', 'k'],
+            trial_duration: 6000,
+            data: { phase: 'model_learning',trial_name: 'learning_choice', trial_num: function () { return current_learning_trial } ,correct_response:function(){return shuffle_location_correct[0] }},
+
+        }
+
+        var learning_result = {
+            type:jsPsychHtmlKeyboardResponse,
+            stimulus: show_choice,
+            choices: "NO_KEYS",
+            trial_duration: 1000,
+            data: { phase: 'model_learning', trial_name: 'learning_result', trial_num: function () { return current_learning_trial } }
+            }
+
+        var learning_loop = {
+        timeline: [learning_choice,learning_result],
+        loop_function: function () {
+            if (counter_correct>=1) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        }
+        
+
+        var start_learning = {
+            type: jsPsychHtmlKeyboardResponse,
+            stimulus: "<p> <br> Please be ready with your fingers on <b>s</b> and <b>k</b><br><br> <img class=keyboard src='images/keyboard.png'> <br><br> <b> Press any key to begin</b></div>",
+            post_trial_gap: 1000,
+        }
+        var finish_learning = {
+            type: jsPsychHtmlButtonResponse,
+            stimulus: function () {
+                return "<p><b>Congratulations!</b> <br><br> You succesfully learned which fruit each company transports. <br> <b>REMEMBER:</b> You will be paid only after completing the second part of the task tomorrow. <br>"
+            },
+            choices:["Click here to return to Prolific and complete the study"]
+            , button_html: ['<a href=https://app.prolific.co/submissions/complete?cc=XXXXXXX target="_blank"> %choice%</a>']
+        }
+
+        timeline.push(enter_fullscreen,instructions_learning,start_learning,learning_loop,finish_learning)
+    /* finish connection with pavlovia.org */
+    var pavlovia_finish = {
+        type: jsPsychPavlovia,
+        command: "finish",
+        participantId: "JSPSYCH-DEMO"
+        };
+    timeline.push(pavlovia_finish);
+    /* start the experiment */
+    jsPsych.run(timeline);
+
+  </script>
+</html>
