@@ -3,7 +3,7 @@
   <head>
     <title>Game</title>
     
-    <script src="lib/vendors/jspsych-7.1.2/jspsych.js"></script>
+    <!--<script src="lib/vendors/jspsych-7.1.2/jspsych.js"></script>
     <script src="lib/vendors/jspsych-7.1.2/plugin-html-keyboard-response.js"></script>
     <script src="lib/vendors/jspsych-7.1.2/plugin-html-button-response.js"></script>
     <script src="lib/vendors/jspsych-7.1.2/plugin-preload.js"></script>
@@ -13,9 +13,9 @@
     <script src="lib/vendors/jspsych-7.1.2/plugin-survey-multi-choice.js"></script>
     <link rel="stylesheet" href="lib/vendors/jspsych-7.1.2/jspsych.css">
     <link href="./css/my_exp.css" rel="stylesheet" type="text/css">
-    <script type="text/javascript" src="lib/jspsych-7-pavlovia-2022.1.1.js"></script>
+    <script type="text/javascript" src="lib/jspsych-7-pavlovia-2022.1.1.js"></script>-->
 
-    <!-- local run
+    <!-- local run-->
     <script src="jspsych/dist/jspsych.js"></script>
     <script src="jspsych/dist/plugin-html-keyboard-response.js"></script>
     <script src="jspsych/dist/plugin-html-button-response.js"></script>
@@ -27,7 +27,7 @@
     <script src="jspsych/dist/plugin-html-button-response.js"></script>
     <script src="jspsych/dist/plugin-html-slider-response.js"></script>
     <link href="jspsych/dist/jspsych.css" rel="stylesheet" type="text/css" />
-    <link href="css/my_exp.css" rel="stylesheet" type="text/css">-->
+    <link href="css/my_exp.css" rel="stylesheet" type="text/css">
 
   </head>
   <body></body>
@@ -53,12 +53,12 @@
     /* create timeline */
     var timeline = [];
     /* init connection with pavlovia.org */
-        var pavlovia_init = {
+    /*    var pavlovia_init = {
 			type: jsPsychPavlovia,
 			command: "init"
 
     };
-    timeline.push(pavlovia_init);
+    timeline.push(pavlovia_init); */
     var root = document.documentElement;
     var vis_angle_px = 105
     root.style.setProperty('--left_fruit', window.screen.width / 2 -250+ "px");
@@ -230,12 +230,12 @@ timeline.push(preload)
 
         timeline.push(enter_fullscreen,instructions_learning,start_learning,learning_loop,finish_learning)
     /* finish connection with pavlovia.org */
-    var pavlovia_finish = {
+    /*var pavlovia_finish = {
         type: jsPsychPavlovia,
         command: "finish",
         participantId: subject_id
         };
-    timeline.push(pavlovia_finish);
+    timeline.push(pavlovia_finish); */
     /* start the experiment */
     jsPsych.run(timeline);
 
