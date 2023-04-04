@@ -12,7 +12,7 @@
     <script src="lib/vendors/jspsych-7.1.2/plugin-survey-text.js"></script>
     <script src="lib/vendors/jspsych-7.1.2/plugin-survey-multi-choice.js"></script>
     <link rel="stylesheet" href="lib/vendors/jspsych-7.1.2/jspsych.css">
-    <link href="my_exp.css" rel="stylesheet" type="text/css">
+    <link href="./css/my_exp.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="lib/jspsych-7-pavlovia-2022.1.1.js"></script>
 
     <!-- local run
@@ -38,15 +38,18 @@
 
 
       // capture info from Prolific
-   // var subject_id = jsPsych.data.getURLVariable('PROLIFIC_PID');
-    //var study_id = jsPsych.data.getURLVariable('STUDY_ID');
-  //  var session_id = jsPsych.data.getURLVariable('SESSION_ID');
+    var subject_id = jsPsych.data.getURLVariable('PROLIFIC_PID');
+    if (subject_id==undefined){
+        subject_id="DEMO"
+    }
+    var study_id = jsPsych.data.getURLVariable('STUDY_ID');
+    var session_id = jsPsych.data.getURLVariable('SESSION_ID');
 
-   // jsPsych.data.addProperties({
-   // subject_id: subject_id,
-  //  study_id: study_id,
-  //  session_id: session_id
- // });
+    jsPsych.data.addProperties({
+    subject_id: subject_id,
+    study_id: study_id,
+    session_id: session_id
+  });
     /* create timeline */
     var timeline = [];
     /* init connection with pavlovia.org */
@@ -78,7 +81,7 @@
     var fruit_images = ['images/fruit/apple.png', 'images/fruit/banana.png','images/fruit/grapes.png','images/fruit/strawberry.png','images/fruit/watermelon.png']
     
     var company_images = ['images/companies/1.png', 'images/companies/2.png', 'images/companies/3.png', 'images/companies/4.png','images/companies/5.png']
-    var example_images = ['images/two_companies.png', 'images/one_company.png', 'images/fruit_example.png', 'images/reward_example.png','images/company1.jpg','images/company2.jpg','images/company3.jpg','images/company4.jpg','images/company5.jpg',"images/keyboard.p"]
+    var example_images = ['images/two_companies.png', 'images/one_company.png', 'images/fruit_example.png', 'images/reward_example.png','images/company1.jpg','images/company2.jpg','images/company3.jpg','images/company4.jpg','images/company5.jpg',"images/keyboard.png"]
     var fixation = '<div class="fixation">+</div>'
 
     var preload = {
@@ -89,7 +92,7 @@ timeline.push(preload)
     var enter_fullscreen = {
     type: jsPsychFullscreen,
     fullscreen_mode: true,
-    message : '<p>This experiment will be in fullscreen mode. <br> <b>Please make sure your browser is on 100% zoom and the downloads toolbar is closed.</b></p>'
+    message : '<p>This experiment will be in fullscreen mode. <br> <b>Please make sure your browser is on 100% zoom.</b></p>'
     }
 
     /*---------------------------------------------------- 
@@ -103,21 +106,21 @@ timeline.push(preload)
             },
             type: jsPsychInstructions,
             pages: ["<b><u>Welcome to the market game</u></b><br><br> In this game <b>you are the manager</b> of a small business that sells fruit at the market",
-                "You have <b>five shipping companies</b> working for you. <br><br> Each company transports to the market <b>two kinds of fruit</b>",
-                "We will start by making sure you are familiar with each company and the fruit they transport.",
-                "These are the logos of the five transportation companies.<br><br> <img class=companies_example src='images/companies_example.jpg'>",
-                "<p>These are the five fruit your company transports.<br><br> <img class=all_fruit_example src='images/all_fruit_example.jpg'>",
-                "You will now be shown each company and the two fruit it transports.<br><br> <b>Take your time to try and remember which fruit each company transports.</b>",
+                "You have <b>five shipping companies</b> working for you <br><br> Each company transports to the market <b>two kinds of fruit</b>",
+                "We will start by making sure you are familiar with each company and the fruit they transport",
+                "These are the logos of the five transportation companies<br><br> <img class=companies_example src='images/companies_example.jpg'>",
+                "<p>These are the five fruit your company transports<br><br> <img class=all_fruit_example src='images/all_fruit_example.jpg'>",
+                "You will now be shown each company and the two fruit it transports<br><br> <b>Take your time to try and remember which fruit each company transports</b>",
                 "<img class=company_and_fruit src='images/company1.jpg' >",
                 "<img class=company_and_fruit src='images/company2.jpg' >",
                 "<img class=company_and_fruit src='images/company3.jpg' >",
                 "<img class=company_and_fruit src='images/company4.jpg' >",
                 "<img class=company_and_fruit src='images/company5.jpg' >",
-                "<p>You will now be trained on your knowledge of what fruit each company transports.<br><br> <b>You can scroll back and take your time to try and remember which fruit are being transported by each company.</b></p>",
+                "<p>You will now be trained on your knowledge of what fruit each company transports<br><br> <b>You can scroll back and take your time to try and remember which fruit are being transported by each company</b></p>",
                 "Each time you will be presented with <b>a company and two fruit, one which the company is transporting and one which it does not </b><br>",
-                "Your task is to choose the fruit which the shown company is transporting.<br> You can select the <b>left fruit by pressing on the letter 'S' on your keyboard,</b> and the <b>right fruit by pressing on the letter 'K' on your keyboard</b>",
+                "Your task is to choose the fruit which the shown company is transporting<br> You can select the <b>left fruit by pressing on the letter 'S' on your keyboard,</b> and the <b>right fruit by pressing on the letter 'K' on your keyboard</b>",
                 "You will have <b>2.5 seconds</b> to select the correct fruit<br>",
-                "You will need to <b>answer correctly 20 times before moving on in the game</b>.<br> After <b>2 wrong or too slow responses the count will start from the beginning.</b>",
+                "You will need to <b>answer correctly 20 times before moving on in the game</b>.<br> After <b>2 wrong or too slow responses the count will start from the beginning</b>",
                 ],
             show_clickable_nav: true
         };
@@ -184,7 +187,7 @@ timeline.push(preload)
             },
             choices: ['s', 'k'],
             trial_duration: 6000,
-            data: { phase: 'model_learning',trial_name: 'learning_choice', trial_num: function () { return current_learning_trial } ,correct_response:function(){return shuffle_location_correct[0] }},
+            data: { phase: 'model_learning',trial_name: 'learning_choice', trial_num: function () { return current_learning_trial } ,correct_response:function(){return shuffle_location_correct[0] }}
 
         }
 
@@ -193,13 +196,16 @@ timeline.push(preload)
             stimulus: show_choice,
             choices: "NO_KEYS",
             trial_duration: 1000,
-            data: { phase: 'model_learning', trial_name: 'learning_result', trial_num: function () { return current_learning_trial } }
+            data: { phase: 'model_learning', trial_name: 'learning_result', trial_num: function () { return current_learning_trial } ,counter_correct:function(){return counter_correct},counter_errors:function(){return counter_errors}},
+            on_finish: function () {
+                current_learning_trial+=1
+            }
             }
 
         var learning_loop = {
         timeline: [learning_choice,learning_result],
         loop_function: function () {
-            if (counter_correct>=1) {
+            if (counter_correct>=20) {
                 return false;
             } else {
                 return true;
@@ -227,7 +233,7 @@ timeline.push(preload)
     var pavlovia_finish = {
         type: jsPsychPavlovia,
         command: "finish",
-        participantId: "JSPSYCH-DEMO"
+        participantId: subject_id
         };
     timeline.push(pavlovia_finish);
     /* start the experiment */
