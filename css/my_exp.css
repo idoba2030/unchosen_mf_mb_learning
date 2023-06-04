@@ -55,6 +55,11 @@
 
         --top_reward: 0px;
         --left_reward: 0px;
+        --click1: 0px;
+        --click2: 0px;
+        --click3: 0px;
+        --click4: 0px;
+        --click5: 0px;
     }
 
     .fixation {
@@ -84,7 +89,66 @@
         height: 135px;
         width: 487px;
     }
-
+    .jspsych-image-button {
+        border: none;
+        background-color: transparent;
+        padding: 0;
+      }
+    img.click1{
+        
+        display: inline-block;
+        margin: 10px;
+        cursor: pointer;
+        height: auto;
+        position: fixed;
+        height: 75px;
+        width: 75px;
+        left: var(--click1);
+    }
+    img.click2{
+        
+        display: inline-block;
+        margin: 10px;
+        cursor: pointer;
+        height: auto;
+        position: fixed;
+        height: 75px;
+        width: 75px;
+        left: var(--click2);
+    }
+    img.click3{
+        
+        display: inline-block;
+        margin: 10px;
+        cursor: pointer;
+        height: auto;
+        position: fixed;
+        height: 75px;
+        width: 75px;
+        left: var(--click3);
+    }
+    img.click4{
+        
+        display: inline-block;
+        margin: 10px;
+        cursor: pointer;
+        height: auto;
+        position: fixed;
+        height: 75px;
+        width: 75px;
+        left: var(--click4);
+    }
+    img.click5{
+        
+        display: inline-block;
+        margin: 10px;
+        cursor: pointer;
+        height: auto;
+        position: fixed;
+        height: 75px;
+        width: 75px;
+        left: var(--click5);
+    }
     img.fruit_left {
         position: fixed;
         height: 75px;
@@ -92,6 +156,7 @@
         left: var(--left_fruit);
         top: var(--top_fruit);
     }
+
 
     img.fruit_right {
         position: fixed;
@@ -109,6 +174,14 @@
         left: var(--left_one_company);
     }
 
+    img.one_fruit {
+        position: fixed;
+        height: 100px;
+        width: 100px;
+        top: var(--top_one_company);
+        left: var(--left_one_company);
+    }
+
     img.left_company {
         position: fixed;
         height: 150px;
@@ -117,6 +190,13 @@
         top: var(--top_company);
     }
 
+    img.left_company_reverse {
+        position: fixed;
+        height: 100px;
+        width: 100px;
+        left: var(--left_company);
+        top: var(--top_fruit);
+    }
 
     img.right_company {
         position: fixed;
@@ -124,6 +204,14 @@
         width: 150px;
         right: var(--left_company);
         top: var(--top_company);
+    }
+
+    img.right_company_reverse {
+        position: fixed;
+        height: 100px;
+        width: 100px;
+        right: var(--left_company);
+        top: var(--top_fruit);
     }
 
     img.fruit {
